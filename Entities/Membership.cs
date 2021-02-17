@@ -9,14 +9,14 @@ namespace MusicBandsAPI_Project.Models
        public class Membership
        {
            [Key]
-           public int MembershipId { get; set; }
+           public Guid MembershipId { get; set; }
            public DateTime StartYear { get; set; }
            public DateTime EndYear { get; set; }
-           public int MusicianId { get; set; }
+           public Guid MusicianId { get; set; }
            public Musician Musician { get; set; }
-           public int BandId { get; set; }
+           public Guid BandId { get; set; }
            public Band Band { get; set; }
-           public int BandRoleId { get; set; }
+           public Guid BandRoleId { get; set; }
            public BandRole BandRole { get; set; }
        } 
 }

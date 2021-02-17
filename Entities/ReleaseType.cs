@@ -11,7 +11,7 @@ namespace MusicBandsAPI_Project.Models
        public class ReleaseType
      {
           [Key]
-          public int ReleaseTypeId { get; set; }
+          public Guid ReleaseTypeId { get; set; }
           [Required]
           [MaxLength(300, ErrorMessage = "Role name cannot be longer than 300 characters.")]
           public string Title { get; set; }

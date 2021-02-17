@@ -9,7 +9,7 @@ namespace MusicBandsAPI_Project.Models
     public class Band
     {
         [Key]
-        public int BandId { get; set; }
+        public Guid BandId { get; set; }
         [Required]
         [MaxLength(300, ErrorMessage = "Band name cannot be longer than 300 characters.")]
         public string BandName { get; set; }

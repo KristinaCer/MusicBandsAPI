@@ -10,8 +10,8 @@ using MusicBandsAPI_Project.Services;
 namespace MusicBandsAPI_Project.Migrations
 {
     [DbContext(typeof(MusicBandsDbContext))]
-    [Migration("20210217082757_MusicianMemberships")]
-    partial class MusicianMemberships
+    [Migration("20210217153242_DatabaseSeeding")]
+    partial class DatabaseSeeding
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,10 +23,9 @@ namespace MusicBandsAPI_Project.Migrations
 
             modelBuilder.Entity("MusicBandsAPI_Project.Models.Band", b =>
                 {
-                    b.Property<int>("BandId")
+                    b.Property<Guid>("BandId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("BandName")
                         .IsRequired()
@@ -39,14 +38,27 @@ namespace MusicBandsAPI_Project.Migrations
                     b.HasKey("BandId");
 
                     b.ToTable("Bands");
+
+                    b.HasData(
+                        new
+                        {
+                            BandId = new Guid("b2d87e36-3f69-486c-bd1d-38be2362f274"),
+                            BandName = "RHCP",
+                            BandWebsite = "https://redhotchilipeppers.com/"
+                        },
+                        new
+                        {
+                            BandId = new Guid("32b0b796-17e6-41e5-9e63-209b421b328d"),
+                            BandName = "Oasis",
+                            BandWebsite = "https://oasis.com/"
+                        });
                 });
 
             modelBuilder.Entity("MusicBandsAPI_Project.Models.BandRole", b =>
                 {
-                    b.Property<int>("BandRoleId")
+                    b.Property<Guid>("BandRoleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RoleName")
                         .IsRequired()
@@ -56,26 +68,42 @@ namespace MusicBandsAPI_Project.Migrations
                     b.HasKey("BandRoleId");
 
                     b.ToTable("BandRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            BandRoleId = new Guid("48a9dd48-c698-458c-a72d-c5074d650bd1"),
+                            RoleName = "Singer"
+                        },
+                        new
+                        {
+                            BandRoleId = new Guid("689754e2-869a-4fe1-8572-73654810f27c"),
+                            RoleName = "Guitarist"
+                        },
+                        new
+                        {
+                            BandRoleId = new Guid("5d2cdf51-ef1c-4125-b1d8-1e5e11a27c5e"),
+                            RoleName = "Drummer"
+                        });
                 });
 
             modelBuilder.Entity("MusicBandsAPI_Project.Models.Membership", b =>
                 {
-                    b.Property<int>("MembershipId")
+                    b.Property<Guid>("MembershipId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("BandId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("BandId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("BandRoleId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("BandRoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("EndYear")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MusicianId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("MusicianId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("StartYear")
                         .HasColumnType("datetime2");
@@ -92,14 +120,24 @@ namespace MusicBandsAPI_Project.Migrations
                         .IsUnique();
 
                     b.ToTable("Memberships");
+
+                    b.HasData(
+                        new
+                        {
+                            MembershipId = new Guid("8976d0a7-a23e-450c-b9f8-47873eba701e"),
+                            BandId = new Guid("b2d87e36-3f69-486c-bd1d-38be2362f274"),
+                            BandRoleId = new Guid("689754e2-869a-4fe1-8572-73654810f27c"),
+                            EndYear = new DateTime(9999, 12, 31, 23, 59, 59, 999, DateTimeKind.Unspecified).AddTicks(9999),
+                            MusicianId = new Guid("0a1188a5-97fd-4865-8b60-6a02c6e70115"),
+                            StartYear = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("MusicBandsAPI_Project.Models.Musician", b =>
                 {
-                    b.Property<int>("MusicianId")
+                    b.Property<Guid>("MusicianId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -112,23 +150,48 @@ namespace MusicBandsAPI_Project.Migrations
                     b.HasKey("MusicianId");
 
                     b.ToTable("Musicians");
+
+                    b.HasData(
+                        new
+                        {
+                            MusicianId = new Guid("0a1188a5-97fd-4865-8b60-6a02c6e70115"),
+                            Name = "Anthony Kiedis",
+                            PersonalPage = "https://en.wikipedia.org/wiki/Anthony_Kiedis"
+                        },
+                        new
+                        {
+                            MusicianId = new Guid("0c79dfac-0fbe-4bd0-9d03-fc08d908917b"),
+                            Name = "Flea",
+                            PersonalPage = "https://en.wikipedia.org/wiki/Flea_(musician)"
+                        },
+                        new
+                        {
+                            MusicianId = new Guid("975589fc-066f-47ae-b3dd-100d6b422976"),
+                            Name = "Chad Smith",
+                            PersonalPage = "https://en.wikipedia.org/wiki/Chad_Smith"
+                        },
+                        new
+                        {
+                            MusicianId = new Guid("f0f7b8ee-b9b6-4790-8408-d6a374afb06a"),
+                            Name = "John Frusciante",
+                            PersonalPage = "https://en.wikipedia.org/wiki/John_Frusciante"
+                        });
                 });
 
             modelBuilder.Entity("MusicBandsAPI_Project.Models.Release", b =>
                 {
-                    b.Property<int>("ReleaseId")
+                    b.Property<Guid>("ReleaseId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("BandId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("BandId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
 
-                    b.Property<int>("ReleaseTypeId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ReleaseTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ReleaseYear")
                         .HasColumnType("datetime2");
@@ -147,14 +210,24 @@ namespace MusicBandsAPI_Project.Migrations
                         .IsUnique();
 
                     b.ToTable("Releases");
+
+                    b.HasData(
+                        new
+                        {
+                            ReleaseId = new Guid("8c69defb-8efb-46da-ac92-50c9bd527bc3"),
+                            BandId = new Guid("b2d87e36-3f69-486c-bd1d-38be2362f274"),
+                            Rating = 10.0,
+                            ReleaseTypeId = new Guid("94f59e91-049b-4706-86db-e601c4264a2b"),
+                            ReleaseYear = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Californication"
+                        });
                 });
 
             modelBuilder.Entity("MusicBandsAPI_Project.Models.ReleaseType", b =>
                 {
-                    b.Property<int>("ReleaseTypeId")
+                    b.Property<Guid>("ReleaseTypeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -164,20 +237,31 @@ namespace MusicBandsAPI_Project.Migrations
                     b.HasKey("ReleaseTypeId");
 
                     b.ToTable("ReleaseTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            ReleaseTypeId = new Guid("94f59e91-049b-4706-86db-e601c4264a2b"),
+                            Title = "Album"
+                        },
+                        new
+                        {
+                            ReleaseTypeId = new Guid("eda1e6f8-edbd-4c49-8438-dba8da3e2859"),
+                            Title = "Single"
+                        });
                 });
 
             modelBuilder.Entity("MusicBandsAPI_Project.Models.Song", b =>
                 {
-                    b.Property<int>("SongId")
+                    b.Property<Guid>("SongId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("AwardReceived")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ReleaseId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ReleaseId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -189,6 +273,22 @@ namespace MusicBandsAPI_Project.Migrations
                     b.HasIndex("ReleaseId");
 
                     b.ToTable("Songs");
+
+                    b.HasData(
+                        new
+                        {
+                            SongId = new Guid("a15cddc8-8788-4c37-ad52-b59e12a54607"),
+                            AwardReceived = true,
+                            ReleaseId = new Guid("8c69defb-8efb-46da-ac92-50c9bd527bc3"),
+                            Title = "Scar Tissue"
+                        },
+                        new
+                        {
+                            SongId = new Guid("8b90681c-c647-474f-a56f-8fef8a88ec02"),
+                            AwardReceived = true,
+                            ReleaseId = new Guid("8c69defb-8efb-46da-ac92-50c9bd527bc3"),
+                            Title = "Californication"
+                        });
                 });
 
             modelBuilder.Entity("MusicBandsAPI_Project.Models.Membership", b =>
