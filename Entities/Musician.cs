@@ -11,10 +11,10 @@ namespace MusicBandsAPI_Project.Models
          [Key]
          public Guid MusicianId { get; set; }
          [Required]
-         [MaxLength(300, ErrorMessage = "Musician name cannot be longer than 300 characters.")]
+         [StringLength(300, MinimumLength = 2,  ErrorMessage = "Musician name cannot be longer than 300 characters.")]
          public string Name { get; set; }
          [Url]
          public string PersonalPage { get; set; }
-         public Membership Membership { get; set; }
+        public Membership Membership { get; set; }
      } 
 }

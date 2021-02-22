@@ -14,6 +14,7 @@ namespace MusicBandsAPI_Project.Models
         [Required]
         [MaxLength(300, ErrorMessage = "Role name cannot be longer than 300 characters.")]
         public string Title { get; set; }
+        [Range(1, 10)]
         public double Rating { get; set; }
         public DateTime ReleaseYear { get; set; }
         public Guid BandId { get; set; }

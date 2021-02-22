@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MusicBandsAPI_Project.Persistence.Repositories;
 using MusicBandsAPI_Project.Services;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,8 @@ namespace MusicBandsAPI_Project
         {
             services.AddControllers();
             services.AddDbContext<MusicBandsDbContext>(c => c.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IMusicianRepository, MusicianRepository>();
+            services.AddScoped<IBandRepository, BandRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
